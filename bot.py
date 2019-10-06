@@ -43,7 +43,7 @@ def start(bot, update):
     message = "Welcome to the coolest bot ever!"
     bot.send_message(chat_id=update.message.chat_id, text=message)
     
-    
+@app.route('/', methods=['POST'])   
 def main(bot_token):
     """ Main function of the bot """
     updater = Updater(token=bot_token, use_context=True)
