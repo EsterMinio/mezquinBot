@@ -1,17 +1,9 @@
 # bot.py
-from telegram.ext import Updater, CommandHandler
-from flask import Flask, request
 import requests  
 import os
-import logging
+from flask import Flask, request
 # Add your telegram token as environment variable
 BOT_URL = f'https://api.telegram.org/bot920184271:AAGf49s0Ju_QYTBPA_HTYOqjSOniAe1qyLg/'
-
-
-app = Flask(__name__)
-
-logging.basicConfig(format="%(asctime)s - %(name)s - %(levelname)s - %(message)s", level=logging.INFO)
-logger = logging.getLogger("MezquinBot")
 
 
 app = Flask(__name__)
@@ -39,4 +31,3 @@ def main():
 if __name__ == '__main__':  
     port = int(os.environ.get('PORT', 5000))
     app.run(host='0.0.0.0', port=port, debug=True)
-
