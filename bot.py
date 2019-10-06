@@ -58,10 +58,22 @@ def main(bot_token):
     # Add the handlers to the bot
     dispatcher.add_handler(start_handler)
     #dispatcher.add_handler(plain_text_handler)
+    
+    data = request.json
+
+    chat_id = data['message']['chat']['id']
+    message = data['message']['text']
+
+    json_data = {
+        "chat_id": chat_id,
+        "text": message,
+    }
+
+    message_url = BOT_URL + 'sendMessage'
+    requests.post(message_url, json=json_data)
 
     # Starting the bot
     updater.start_polling()
-    updater.idle()
 
 if __name__ == "__main__":
     port = int(os.environ.get('PORT', 5000))
