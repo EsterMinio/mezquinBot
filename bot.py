@@ -44,7 +44,7 @@ def start(bot, update):
     bot.send_message(chat_id=update.message.chat_id, text=message)
     
 @app.route('/', methods=['POST'])   
-def main(bot_token):
+def main():
     """ Main function of the bot """
     #updater = Updater(token="920184271:AAGf49s0Ju_QYTBPA_HTYOqjSOniAe1qyLg", use_context=True)
     #dispatcher = updater.dispatcher
