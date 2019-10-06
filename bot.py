@@ -1,4 +1,7 @@
 # bot.py
+from telegram.ext import Updater
+from telegram.ext import CommandHandler
+from telegram.ext import MessageHandler, Filters
 import requests  
 import os
 from flask import Flask, request
