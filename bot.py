@@ -1,5 +1,4 @@
 # bot.py
-
 from telegram.ext import Updater, CommandHandler
 from flask import Flask, request
 import requests  
@@ -15,52 +14,14 @@ logging.basicConfig(format="%(asctime)s - %(name)s - %(levelname)s - %(message)s
 logger = logging.getLogger("MezquinBot")
 
 
-#@app.route('/', methods=['POST'])
-#def main():  
- #   logger.info('Hola')
-
-  #  data = request.json
-
-   # print(data)  # Comment to hide what Telegram is sending you
-    #chat_id = data['message']['chat']['id']
-    #message = data['message']['text']
-
-    #json_data = {
-    #    "chat_id": chat_id,
-    #    "text": message,
-    #}
-
-    #message_url = BOT_URL + 'sendMessage'
-    #requests.post(message_url, json=json_data)
-
-    #return ''
-    
+app = Flask(__name__)
 
 
-def start(bot, update):
-    """ This function will be executed when '/start' command is received """
-    logger.info("He recibido un comando start")
-    message = "Welcome to the coolest bot ever!"
-    bot.send_message(chat_id=update.message.chat_id, text=message)
-    
-@app.route('/', methods=['POST'])   
-def main():
-    """ Main function of the bot """
-    #updater = Updater(token="920184271:AAGf49s0Ju_QYTBPA_HTYOqjSOniAe1qyLg", use_context=True)
-    #dispatcher = updater.dispatcher
-
-    # Command handlers
-    #start_handler = CommandHandler('start', start)
-
-    # Other handlers
-    #plain_text_handler = MessageHandler(Filters.text, plain_text)
-
-    # Add the handlers to the bot
-    #dispatcher.add_handler(start_handler)
-    #dispatcher.add_handler(plain_text_handler)
-    
+@app.route('/', methods=['POST'])
+def main():  
     data = request.json
 
+    print(data)  # Comment to hide what Telegram is sending you
     chat_id = data['message']['chat']['id']
     message = data['message']['text']
 
@@ -72,12 +33,10 @@ def main():
     message_url = BOT_URL + 'sendMessage'
     requests.post(message_url, json=json_data)
 
-    # Starting the bot
-    #updater.start_polling()
-    #updater.idle()
     return ''
 
-if __name__ == "__main__":
+
+if __name__ == '__main__':  
     port = int(os.environ.get('PORT', 5000))
     app.run(host='0.0.0.0', port=port, debug=True)
 
