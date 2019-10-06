@@ -6,7 +6,7 @@ import requests
 import os
 import logging
 # Add your telegram token as environment variable
-#BOT_URL = f'https://api.telegram.org/bot920184271:AAGf49s0Ju_QYTBPA_HTYOqjSOniAe1qyLg/'
+BOT_URL = f'https://api.telegram.org/bot920184271:AAGf49s0Ju_QYTBPA_HTYOqjSOniAe1qyLg/'
 
 
 app = Flask(__name__)
@@ -74,10 +74,9 @@ def main(bot_token):
 
     # Starting the bot
     updater.start_polling()
+    updater.idle()
 
 if __name__ == "__main__":
     port = int(os.environ.get('PORT', 5000))
     app.run(host='0.0.0.0', port=port, debug=True)
-    TOKEN = "920184271:AAGf49s0Ju_QYTBPA_HTYOqjSOniAe1qyLg"
-    main(TOKEN)
 
