@@ -1,36 +1,53 @@
-# bot.py
-from telegram.ext import Updater
-from telegram.ext import CommandHandler
-from telegram.ext import MessageHandler, Filters
-import requests  
+import logging
 import os
-from flask import Flask, request
-# Add your telegram token as environment variable
-BOT_URL = f'https://api.telegram.org/bot920184271:AAGf49s0Ju_QYTBPA_HTYOqjSOniAe1qyLg/'
+import random
+import sys
+
+from telegram.ext import Updater, CommandHandler
+
+# Enabling logging
+logging.basicConfig(level=logging.INFO,
+                    format="%(asctime)s - %(name)s - %(levelname)s - %(message)s")
+logger = logging.getLogger()
+
+# Getting mode, so we could define run function for local and Heroku setup
+mode = os.getenv("MODE")
+TOKEN = os.getenv("TOKEN")
+if mode == "dev":
+    def run(updater):
+        updater.start_polling()
+elif mode == "prod":
+    def run(updater):
+        PORT = int(os.environ.get("PORT", "8443"))
+        HEROKU_APP_NAME = os.environ.get("mezquinbot")
+        # Code from https://github.com/python-telegram-bot/python-telegram-bot/wiki/Webhooks#heroku
+        updater.start_webhook(listen="0.0.0.0",
+                              port=PORT,
+                              url_path=TOKEN)
+        updater.bot.set_webhook("https://{}.herokuapp.com/{}".format(HEROKU_APP_NAME, TOKEN))
+else:
+    logger.error("No MODE specified!")
+    sys.exit(1)
 
 
-app = Flask(__name__)
+def start_handler(bot, update):
+    # Creating a handler-function for /start command 
+    logger.info("User {} started bot".format(update.effective_user["id"]))
+    update.message.reply_text("Hello from Python!\nPress /random to get random number")
 
 
-@app.route('/', methods=['POST'])
-def main():  
-    data = request.json
-
-    print(data)  # Comment to hide what Telegram is sending you
-    chat_id = data['message']['chat']['id']
-    message = data['message']['text']
-
-    json_data = {
-        "chat_id": chat_id,
-        "text": message,
-    }
-
-    message_url = BOT_URL + 'sendMessage'
-    requests.post(message_url, json=json_data)
-
-    return ''
+def random_handler(bot, update):
+    # Creating a handler-function for /random command
+    number = random.randint(0, 10)
+    logger.info("User {} randomed number {}".format(update.effective_user["id"], number))
+    update.message.reply_text("Random number: {}".format(number))
 
 
-if __name__ == '__main__':  
-    port = int(os.environ.get('PORT', 5000))
-    app.run(host='0.0.0.0', port=port, debug=True)
+if __name__ == '__main__':
+    logger.info("Starting bot")
+    updater = Updater(TOKEN)
+
+    updater.dispatcher.add_handler(CommandHandler("start", start_handler))
+    updater.dispatcher.add_handler(CommandHandler("random", random_handler))
+
+    run(updater)
