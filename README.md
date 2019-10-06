@@ -1,0 +1,3 @@
+# MezquinBot
+
+Primera versión MezquinBot
