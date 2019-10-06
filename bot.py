@@ -11,8 +11,8 @@ import logging
 
 app = Flask(__name__)
 
-logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)
-logger = logging.getLogger('AchicaynaBot')
+logging.basicConfig(format="%(asctime)s - %(name)s - %(levelname)s - %(message)s", level=logging.INFO)
+logger = logging.getLogger("MezquinBot")
 
 
 #@app.route('/', methods=['POST'])
@@ -39,6 +39,7 @@ logger = logging.getLogger('AchicaynaBot')
 
 def start(bot, update):
     """ This function will be executed when '/start' command is received """
+    logger.info("He recibido un comando start")
     message = "Welcome to the coolest bot ever!"
     bot.send_message(chat_id=update.message.chat_id, text=message)
     
