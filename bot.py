@@ -34,6 +34,10 @@ def start_handler(bot, update):
 def abraso_handler(bot, update):
     logger.info("User {} asked for abraso".format(update.effective_user["id"]))
     update.message.reply_text("Abrasooooo")
+    
+def help_handler(bot, update):
+    logger.info("User {} asked for help".format(update.effective_user["id"]))
+    update.message.reply_text("Pronto vendrá la ayuda")
 
 def handle_message(bot, update):
     text = update.message.text
@@ -47,7 +51,7 @@ def handle_message(bot, update):
         mimimiString = mimimiString.replace("Á", "Í").replace("É", "Í").replace("Ó", "Í").replace("Ú", "Í")
         
         mimimiList = list(mimimiString)
-        for i in range (0, mimimiList):
+        for i in range (0, len(mimimiList)):
             if (mimimiList[i] == "u" or mimimiList[i] == "U" or mimimiList[i] == "ú" or mimimiList[i] == "Ú"):
                 if (mimimiList[i-1] == "g" or mimimiList[i-1] == "G" or mimimiList[i-1] == "q" or mimimiList[i-1] == "Q"):
                     continue
@@ -69,6 +73,7 @@ if __name__ == '__main__':
 
     updater.dispatcher.add_handler(CommandHandler("start", start_handler))
     updater.dispatcher.add_handler(CommandHandler("abraso", abraso_handler))
+    updater.dispatcher.add_handler(CommandHandler("help", help_handler))
     updater.dispatcher.add_handler(MessageHandler(filters=Filters.text, callback=handle_message))
 
     run(updater)
