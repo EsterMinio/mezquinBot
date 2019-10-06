@@ -1,7 +1,9 @@
 # bot.py
+
+from telegram.ext import Updater, CommandHandler
+from flask import Flask, request
 import requests  
 import os
-from flask import Flask, request
 import logging
 # Add your telegram token as environment variable
 BOT_URL = f'https://api.telegram.org/bot920184271:AAGf49s0Ju_QYTBPA_HTYOqjSOniAe1qyLg/'
@@ -32,8 +34,26 @@ def main():
     requests.post(message_url, json=json_data)
 
     return ''
+    
+
+def start(bot, update):
+    logger.info('He recibido un comando start')
+    bot.send_message(
+        chat_id=update.message.chat_id,
+        text="Soy Mesquina jijiji."
+    )
+
 
 
 if __name__ == '__main__':  
     port = int(os.environ.get('PORT', 5000))
     app.run(host='0.0.0.0', port=port, debug=True)
+    
+    updater = Updater(token=token)
+    dispatcher = updater.dispatcher
+
+    dispatcher.add_handler(CommandHandler('start', start))
+
+    updater.start_polling()
+    updater.idle()
+
