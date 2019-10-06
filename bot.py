@@ -46,17 +46,17 @@ def start(bot, update):
 @app.route('/', methods=['POST'])   
 def main(bot_token):
     """ Main function of the bot """
-    updater = Updater(token=bot_token, use_context=True)
-    dispatcher = updater.dispatcher
+    #updater = Updater(token="920184271:AAGf49s0Ju_QYTBPA_HTYOqjSOniAe1qyLg", use_context=True)
+    #dispatcher = updater.dispatcher
 
     # Command handlers
-    start_handler = CommandHandler('start', start)
+    #start_handler = CommandHandler('start', start)
 
     # Other handlers
     #plain_text_handler = MessageHandler(Filters.text, plain_text)
 
     # Add the handlers to the bot
-    dispatcher.add_handler(start_handler)
+    #dispatcher.add_handler(start_handler)
     #dispatcher.add_handler(plain_text_handler)
     
     data = request.json
@@ -73,8 +73,9 @@ def main(bot_token):
     requests.post(message_url, json=json_data)
 
     # Starting the bot
-    updater.start_polling()
-    updater.idle()
+    #updater.start_polling()
+    #updater.idle()
+    return ''
 
 if __name__ == "__main__":
     port = int(os.environ.get('PORT', 5000))
