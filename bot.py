@@ -37,7 +37,7 @@ def abraso_handler(bot, update):
 
 def handle_message(bot, update):
     text = update.message.text
-    if ("ABRASO" in (str.upper())):
+    if ("ABRASO" in (text.upper())):
         update.message.reply_text("Si quieres que haga algo tienes que usar un comando")
     else:
         mimimiString = ""
