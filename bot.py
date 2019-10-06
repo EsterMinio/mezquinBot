@@ -36,12 +36,15 @@ logger = logging.getLogger('AchicaynaBot')
     #return ''
     
 
-def start(bot, update):
+@bot.message_handler(commands=['start']) # Indicamos que lo siguiente va a controlar el comando '/start'    
+def start(m):
     logger.info('He recibido un comando start')
-    bot.send_message(
-        chat_id=update.message.chat_id,
-        text="Soy Mesquina jijiji."
-    )
+    
+    cid = m.chat.id # Guardamos el ID de la conversación para poder responder.
+    bot.send_chat_action(cid, 'typing') # Enviando ...
+ 
+    bot.send_message( cid, "Soy Mesquina jijiji.") # Con la función 'send_message()' del bot, enviamos al ID almacenado el texto que queremos.
+    
 
 
 
