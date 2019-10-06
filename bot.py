@@ -36,27 +36,35 @@ logger = logging.getLogger('AchicaynaBot')
     #return ''
     
 
-@bot.message_handler(commands=['start']) # Indicamos que lo siguiente va a controlar el comando '/start'    
-def start(m):
-    logger.info('He recibido un comando start')
-    
-    cid = m.chat.id # Guardamos el ID de la conversación para poder responder.
-    bot.send_chat_action(cid, 'typing') # Enviando ...
- 
-    bot.send_message( cid, "Soy Mesquina jijiji.") # Con la función 'send_message()' del bot, enviamos al ID almacenado el texto que queremos.
-    
 
-
-
-if __name__ == '__main__':  
-    port = int(os.environ.get('PORT', 5000))
-    app.run(host='0.0.0.0', port=port, debug=True)
+def start(bot, update):
+    """ This function will be executed when '/start' command is received """
+    message = "Welcome to the coolest bot ever!"
+    bot.send_message(chat_id=update.message.chat_id, text=message)
     
-    updater = Updater(token='920184271:AAGf49s0Ju_QYTBPA_HTYOqjSOniAe1qyLg', use_context=True)
+    
+def main(bot_token):
+    """ Main function of the bot """
+    updater = Updater(token=bot_token, use_context=True)
     dispatcher = updater.dispatcher
 
-    dispatcher.add_handler(CommandHandler('start', start))
+    # Command handlers
+    start_handler = CommandHandler('start', start)
 
+    # Other handlers
+    #plain_text_handler = MessageHandler(Filters.text, plain_text)
+
+    # Add the handlers to the bot
+    dispatcher.add_handler(start_handler)
+    #dispatcher.add_handler(plain_text_handler)
+
+    # Starting the bot
     updater.start_polling()
     updater.idle()
+
+if __name__ == "__main__":
+    port = int(os.environ.get('PORT', 5000))
+    app.run(host='0.0.0.0', port=port, debug=True)
+    TOKEN = "920184271:AAGf49s0Ju_QYTBPA_HTYOqjSOniAe1qyLg"
+    main(TOKEN)
 
