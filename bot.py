@@ -53,7 +53,7 @@ def handle_message(bot, update):
         mimimiList = list(mimimiString)
         for i in range (0, len(mimimiList)):
             if (mimimiList[i].upper() == "U" or mimimiList[i].upper() == "Ú"):
-		            if (mimimiList[i-1].upper() == "G" or mimimiList[i-1].upper() == "Q"):
+                if (mimimiList[i-1].upper() == "G" or mimimiList[i-1].upper() == "Q"):
                     continue
                 elif (mimimiList[i] == "u"):
                     mimimiList[i] = "i"
