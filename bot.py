@@ -45,15 +45,15 @@ def handle_message(bot, update):
         update.message.reply_text("Si quieres que haga algo tienes que usar un comando")
     else:
         mimimiString = ""
-        mimimiString = text.replace("a", "i").replace("e", "i").replace("o", "i").replace("u", "i")
-        mimimiString = mimimiString.replace("A", "I").replace("E", "I").replace("O", "I").replace("U", "I")
-        mimimiString = mimimiString.replace("á", "í").replace("é", "í").replace("ó", "í").replace("ú", "í")
-        mimimiString = mimimiString.replace("Á", "Í").replace("É", "Í").replace("Ó", "Í").replace("Ú", "Í")
+        mimimiString = text.replace("a", "i").replace("e", "i").replace("o", "i")
+        mimimiString = mimimiString.replace("A", "I").replace("E", "I").replace("O", "I")
+        mimimiString = mimimiString.replace("á", "í").replace("é", "í").replace("ó", "í")
+        mimimiString = mimimiString.replace("Á", "Í").replace("É", "Í").replace("Ó", "Í")
         
         mimimiList = list(mimimiString)
         for i in range (0, len(mimimiList)):
-            if (mimimiList[i] == "u" or mimimiList[i] == "U" or mimimiList[i] == "ú" or mimimiList[i] == "Ú"):
-                if (mimimiList[i-1] == "g" or mimimiList[i-1] == "G" or mimimiList[i-1] == "q" or mimimiList[i-1] == "Q"):
+            if (mimimiList[i].upper() == "U" or mimimiList[i].upper() == "Ú"):
+		            if (mimimiList[i-1].upper() == "G" or mimimiList[i-1].upper() == "Q"):
                     continue
                 elif (mimimiList[i] == "u"):
                     mimimiList[i] = "i"
